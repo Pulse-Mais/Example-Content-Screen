@@ -13,6 +13,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      borderWidth: {
+        1: "1px",
+      },
+      gridTemplateColumns: {
+        'auto-fill-250': 'repeat(auto-fill, minmax(250px, 1fr))',
+      },
+      colors: {
+        "midnight-blue-950": "#003870",
+      }
     },
   },
   plugins: [],
