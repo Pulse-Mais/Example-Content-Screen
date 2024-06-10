@@ -23,6 +23,7 @@ export function DragDrop({ onFileSelect }: IDragDropProps) {
         setIsDragging(false);
         var getFile = event.dataTransfer.files;
         if(getFile.length > 0) {
+            console.log(getFile)
             setFile(getFile[0]);
             console.log(getFile[0]);
         }
