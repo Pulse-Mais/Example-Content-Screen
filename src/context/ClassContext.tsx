@@ -9,6 +9,7 @@ interface IClassCtx {
     getTrailClasses: () => IClass[];
     createClass: (classData: ICreateClass) => void;
     createContentClass: (classId: string, content: File) => void;
+    createContentVideoClass: (classId: string, content: File) => void;
     updateClass: ({ classId }: { classId: string }, rest: IClass) => void;
     unlockClass: (classId: string) => void;
 }
@@ -39,7 +40,7 @@ export function ClassProvider({ children }: { children: React.ReactNode }) {
         return uploadContent;
     }
 
-    async function createContentVideoClass({ classId }: { classId: string }, content: any) {
+    async function createContentVideoClass({ classId }: { classId: string }, content: File) {
         var uploadContent = await api.post(`/create-class-content/video/${trailId}/${classId}`, content)
 
         return uploadContent;
@@ -66,7 +67,8 @@ export function ClassProvider({ children }: { children: React.ReactNode }) {
         <ClassContext.Provider
             value={{
                 trailId, setTrailId,
-                getTrailClasses, createClass, createContentClass, updateClass, unlockClass
+                getTrailClasses, createClass, createContentClass, updateClass, unlockClass,
+                createContentVideoClass
             }}
         >
             {children}
