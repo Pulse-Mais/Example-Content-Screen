@@ -7,15 +7,38 @@ interface IDragDropProps {
     onFileSelect: (file: File | undefined) => void;
 }
 
+
 export function DragDrop({ onFileSelect }: IDragDropProps) {
     const [file, setFile] = useState<File>();
     const [isDragging, setIsDragging] = useState(false);
 
     function handleBrowseFile(e: ChangeEvent<HTMLInputElement>) {
         var getFile = e.target.files;
+        const allowedMimeTypes = [
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation', // pptx
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // xlsx
+            'application/pdf', // pdf
+            'image/jpeg', // jpg, jpeg
+            'image/png', // png
+            'image/svg+xml', // svg
+            'application/msword', // doc
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // docx
+            'application/vnd.ms-excel', // xls
+            'text/plain', // txt
+            'audio/*', // audio files
+            'video/*' // video files
+        ];
+
+        // Verifique se o tipo do arquivo está na lista de tipos permitidos
         if(getFile && getFile.length > 0) {
-            setFile(getFile[0]);
+            if (allowedMimeTypes.includes(getFile[0].type)) {
+                setFile(getFile[0]);
+                console.log(getFile[0]);
+            } else {
+                alert('Formato de arquivo não suportado. Por favor, carregue um arquivo válido.');
+            }
         }
+        
     }
 
     function handleDrop(event: DragEvent) {

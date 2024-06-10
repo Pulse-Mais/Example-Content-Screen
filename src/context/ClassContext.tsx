@@ -10,7 +10,7 @@ interface IClassCtx {
     createClass: (classData: ICreateClass) => void;
     createContentClass: (classId: string, content: File) => void;
     updateClass: ({ classId }: { classId: string }, rest: IClass) => void;
-    unlockClass: ({ classId }: { classId: string }) => void;
+    unlockClass: (classId: string) => void;
 }
 
 export const ClassContext = createContext<IClassCtx>({} as IClassCtx);
@@ -51,7 +51,7 @@ export function ClassProvider({ children }: { children: React.ReactNode }) {
         return updateClass.data;
     }
 
-    async function unlockClass({ classId }: { classId: string }) {
+    async function unlockClass(classId: string) {
         const unlock = await api.put(`/unlock-trail-class/${trailId}/${classId}`);
 
         return unlock;

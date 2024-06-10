@@ -12,7 +12,7 @@ export default function Page() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [file, setFile] = useState<File>();
     const { setTrailId } = useClass();
-    const { createContentClass } = useClass();
+    const { createContentClass, unlockClass } = useClass();
 
     
     return (
@@ -27,6 +27,13 @@ export default function Page() {
                 <div className="flex flex-col items-center gap-4 py-8 px-16 bg-zinc-200 rounded-lg max-w-2xl mt-4">
                     <Image src={noContent} alt="Sem conteúdo" />
                     <Button className="mt-4" _title="Adicionar conteúdo" onClick={() => setIsModalOpen(true)} />
+                </div>
+
+                <div>
+                    <Button 
+                        _title="Publicar aula"
+                        onClick={() => unlockClass("hello-world")}
+                    />
                 </div>
 
                 { isModalOpen && (
