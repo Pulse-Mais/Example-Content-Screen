@@ -1,17 +1,19 @@
 "use client"
 import { IClass, ICreateClass, ISetTrailClassContentInput } from "@/@types/class.interface";
 import { api } from "@/utils/api";
+import { AxiosResponse } from "axios";
 import { createContext, useEffect, useState } from "react";
 
 interface IClassCtx {
     trailId: string;
     setTrailId: (trailId: string) => void;
-    getTrailClasses: () => IClass[];
-    createClass: (classData: ICreateClass) => void;
+    getTrailClasses: () => Promise<IClass[]>;
+    createClass: (classData: ICreateClass) => Promise<AxiosResponse<any, any>> ;
     createContentClass: (classId: string, content: File) => void;
     createContentVideoClass: (classId: string, content: File) => void;
     updateClass: ({ classId }: { classId: string }, rest: IClass) => void;
     unlockClass: (classId: string) => void;
+    allClasses: IClass[];
 }
 
 export const ClassContext = createContext<IClassCtx>({} as IClassCtx);
@@ -20,15 +22,20 @@ export function ClassProvider({ children }: { children: React.ReactNode }) {
     const [trailId, setTrailId] = useState<string>("");
     const [allClasses, setAllClasses] = useState<IClass[]>([]);
 
-    function getTrailClasses(): IClass[] {
-        api.get(`/create-trail-class/${trailId}`).then((response) => {
-            setAllClasses(response.data);
-        });
+    async function getTrailClasses(): Promise<IClass[]> {
+        // api.get(`/trail/07e4779b-8ab7-4d95-9905-d88c9aef924c/trail-classes`).then((response) => {
+            
+        //     setAllClasses(response.data);
+        // });
 
+        const response = await fetch(`http://127.0.0.1:3333/trail/07e4779b-8ab7-4d95-9905-d88c9aef924c/trail-classes`)
+        
+        const data = await response.json();
+        setAllClasses(data.trailClasses);
         return allClasses;
     }
 
-    async function createClass(classData: ICreateClass) {
+    async function createClass(classData: ICreateClass): Promise<AxiosResponse<any, any>> {
         const contentClass = await api.post(`/create-trail-class/${trailId}`, classData);
 
         return contentClass;
@@ -59,7 +66,7 @@ export function ClassProvider({ children }: { children: React.ReactNode }) {
     }
 
     useEffect(() => {
-        setTrailId("1");
+        setTrailId("07e4779b-8ab7-4d95-9905-d88c9aef924c");
         getTrailClasses();
     }, []);
 
@@ -68,7 +75,9 @@ export function ClassProvider({ children }: { children: React.ReactNode }) {
             value={{
                 trailId, setTrailId,
                 getTrailClasses, createClass, createContentClass, updateClass, unlockClass,
-                createContentVideoClass
+                createContentVideoClass,
+                allClasses
+
             }}
         >
             {children}

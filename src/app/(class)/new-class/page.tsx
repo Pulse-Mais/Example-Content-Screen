@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,8 @@ import { createClassSchema } from "@/utils/schema";
 import { LabelFloat } from "@/components/LabelFloat";
 import { LabelFloatTextarea } from "@/components/LabelFloatTextArea";
 import { useClass } from "@/hooks/useClass";
+import { ClassContext } from "@/context/ClassContext";
+import { IClass } from "@/@types/class.interface";
 
 type FormData = z.infer<typeof createClassSchema>;
 
@@ -31,15 +33,17 @@ export default function NewClass() {
         console.log(data);
     }
 
+    const { allClasses } = useContext(ClassContext);
+  
+
     return (
         <>
             <Header _title="Novas aulas" />
             <Button className="ml-6 my-1" _title="Criar nova aula" onClick={() => setIsModalOpen(true)}/>
             <div className="mt-2 ml-6 grid grid-cols-auto-fill-250 gap-4">
-                <Card onClick={() => {
-                    router.push(`${currentPathname}/hello-world`);
-                    setTrailId("hello-world");
-                }} />
+                { allClasses.map((classData) => (
+                    <Card key={classData.id} onClick={() => router.push(`${currentPathname}/${classData.id}`)}  _title={classData.title} description={classData.description} duration={30}/>
+                ))}
             </div>
 
             {
