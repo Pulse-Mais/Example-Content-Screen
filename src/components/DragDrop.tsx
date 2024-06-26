@@ -1,14 +1,16 @@
 import { Trash, Upload } from "@/utils/Icons";
 import { ChangeEvent, DragEvent, useEffect, useState } from "react";
 import { Button } from "./Button";
+import { twMerge } from "tailwind-merge";
 
 
 interface IDragDropProps {
     onFileSelect: (file: File | undefined) => void;
+    className?: string;
 }
 
 
-export function DragDrop({ onFileSelect }: IDragDropProps) {
+export function DragDrop({ onFileSelect, className }: IDragDropProps) {
     const [file, setFile] = useState<File>();
     const [isDragging, setIsDragging] = useState(false);
 
@@ -58,7 +60,7 @@ export function DragDrop({ onFileSelect }: IDragDropProps) {
 
     return (
         <div 
-            className={`border-dotted border-2 rounded-md border-zinc-400 h-full p-4 my-4 select-none ${isDragging ? 'border-midnight-blue-950 bg-sky-100' : ''}`} 
+            className={twMerge(`border-dotted border-2 rounded-md border-zinc-400 h-full p-4 my-4 select-none ${isDragging ? 'border-midnight-blue-950 bg-sky-100' : ''}`, className)} 
             onDrop={handleDrop} 
             onDragOver={(e) => {
                 e.preventDefault();

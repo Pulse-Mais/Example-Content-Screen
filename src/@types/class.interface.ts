@@ -11,20 +11,21 @@ interface IClass {
     subtitle: string;
     description: string;
     courseStorageKey: string;
-    status: string;
+    status: "published" | "not-published";
     release: {
         schedule: string;
-        status: string;
+        status: "locked" | "unlocked";
     };
     content: {
-        type: string;
-        format: string;
+        type: "video" | "archive" | "none" | "empty" | "image" | "audio";
+        // format: "planilha" | "pdf" | "slides" | "video";
         key: string;
-        status: string;
+        status: "empty" | "in-upload" | "filled";
         upload: {
             id: string;
             status: string;
         };
+        archiveExtension: string;
     };
     createAt: string;
     updateAt: string;

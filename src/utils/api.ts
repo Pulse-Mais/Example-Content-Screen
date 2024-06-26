@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://127.0.0.1:3333",
-    headers: {
-        "Content-Type": "application/json",
-    },
+    baseURL: process.env.NEXT_PUBLIC_MY_SECRET_KEY,
 });
 
 

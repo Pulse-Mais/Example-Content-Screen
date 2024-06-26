@@ -14,7 +14,7 @@ export function Header({ _title, onBack } : IHeaderProps) {
                 <span>Voltar</span>
             </Link>
 
-            <h1 className="font-semibold text-2xl ml-6">{_title}</h1>
+            <h1 className="font-semibold text-2xl">{_title}</h1>
         </>
     )
 }

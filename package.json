@@ -9,15 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
     "@mux/mux-node": "^8.7.1",
+    "@mux/mux-player-react": "^2.7.0",
     "@phosphor-icons/react": "^2.1.5",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
+    "formidable": "^3.5.1",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
     "tailwind-merge": "^2.3.0",
+    "vanilla-calendar-pro": "^2.9.6",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -5,11 +5,14 @@ import PulseMaisLogo from "@/assets/Simbolo_PulseMais.svg";
 
 import { BookOpenText, GraduationCap, Headphones, House, Trophy, UserList } from "../utils/Icons";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { useClass } from "@/hooks/useClass";
 
 export function Aside() {
     const currentPathname = usePathname();
+    const { setTrailId } = useClass();
     const routerOfAside = [
-        { id: "home", href: "/", icon: House },
+        { id: "home", href: "/9f1ac661-2d1f-4dbd-93ec-5a0c232f361b", icon: House },
         { id: "grad", href: "/grad", icon: GraduationCap },
         { id: "book", href: "/book", icon: BookOpenText },
         { id: "trop", href: "/trop", icon: Trophy },
@@ -19,7 +22,7 @@ export function Aside() {
 
     return (
         <aside className="flex flex-col justify-between items-center bg-white h-full w-fit p-2 border-r-zinc-200 border-1">
-            <Image src={PulseMaisLogo} alt="Pulse mais Logo" width={58} />
+            <Image src={PulseMaisLogo} alt="Pulse mais Logo" width={58} priority />
 
             <div className="flex flex-col items-center gap-2">
                 {routerOfAside.map(({ id, href, icon: Icon }) => (
